@@ -24,7 +24,7 @@ function drawplayer()
 end
 
 function drawmap()
-  map(0,o,o,o,16,16)
+  map(0,0,0,0,16,16)
 end
 
 function ccols()

@@ -2,11 +2,13 @@ pico-8 cartridge // http://www.pico-8.com
 version 16
 __lua__
 function _init()
+  log={}
   make_player()
 end
 
 function _update()
   move_player()
+  friction()
 end
 
 function _draw()
@@ -16,6 +18,25 @@ function _draw()
   draw_player()
 end
 
+function add_to_log(msg)
+  local inlog = false
+  for m in log do
+   if m==msg then inlog=true
+   end
+  end
+end
+
+function printlog()
+  for m in log do
+    print(m)
+  end
+end
+
+function friction()
+  if(not(btn(⬅️) and not(btn(➡️))))then
+   --if(p.dx>0) p.dx-=0.5
+  end
+end
 -->8
 -- player
 function make_player()
@@ -42,6 +63,12 @@ function move(c,d)
       mod=-p.dx
     elseif (c=="y")then  
       mod=-p.dy
+    end
+  else
+    if (c=="x" and p.dx>0)then 
+      mod=p.dx/10
+    elseif (c=="y" and p.dy>0)then  
+      mod=p.dy/10
     end
   end
   if(d==➡️)then
